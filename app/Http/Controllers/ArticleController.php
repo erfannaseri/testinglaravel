@@ -10,26 +10,30 @@ use Illuminate\Support\Facades\Session;
 class ArticleController extends Controller
 {
     public function index(){
-        $articles=Article::all();
-        $count=$articles->count();
+        $articles=Article::paginate(10);
+        $count=Article::count();
 
         return view('articles.all',compact('articles','count'));
     }
     public function show($id){
-        $articles=Article::find($id);
+        $article=Article::find($id);
 
-        return view('articles.show',compact('articles'));
+        return view('articles.show',compact('article'));
     }
     public function create(){
         return view('articles.create');
     }
     public function store(Request $request){
+            // TODO: Use model instead of queries
             DB::table('articles')->insert([
             'title'=>$request->input('title'),
             'source'=>$request->input('source'),
             'content'=>$request->input('content')
             ]);
+        
+            // if true !?
             if (true) {
+                // Use language files instead of writing fucking farsi in your codes
                 Session::flash('insertArticle','مقاله مورد ن ظر ثبت شد');
             }
             return back();
