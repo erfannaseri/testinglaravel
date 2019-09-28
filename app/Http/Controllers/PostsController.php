@@ -40,9 +40,12 @@ class PostsController extends Controller
     public function store(FormValidation $request)
     {
         $validatedData = $request->validated();
+        // You create a post here
         Posts::create($validatedData);
+        // And create another post here
+        // Are you sure?
         $post=new Posts([
-            'title'     =>$request->input('title'),
+            'title'     =>$request->input('title'), // Use model properties instead of arrays
             'author'    =>$request->input('author'),
             'content'   =>$request->input('content')
         ]);
@@ -104,7 +107,7 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        $posts=Posts::find($id);
+        $posts=Posts::find($id); // Post::delete($id)
         $posts->delete();
         return redirect('/posts');
     }
