@@ -9,7 +9,9 @@ class Article extends Model
     protected $fillable=[
         'title','source','content'
     ];
-    public function comments(){
+    
+    public function comments()
+    {
         return $this->hasMany(Comment::class);
     }
 }
