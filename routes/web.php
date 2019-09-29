@@ -52,4 +52,5 @@ Route::group(['prefix'=>'articles'],function (){
     Route::get('/{id}/edit','articlecontroller@edit');
     Route::put('/{id}','articlecontroller@update');
     Route::delete('/{id}','articlecontroller@delete');
+    Route::get('/test','articlecontroller@testing');
 });

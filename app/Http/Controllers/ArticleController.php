@@ -60,5 +60,8 @@ class ArticleController extends Controller
        return redirect('/articles/'.$articleId);
 
     }
-
+    public function testing(){
+        $article=Article::find(1)->comments();
+       var_dump($article);
+    }
 }
