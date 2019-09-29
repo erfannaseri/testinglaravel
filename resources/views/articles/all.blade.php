@@ -48,6 +48,7 @@
                         @endforeach
                         </tbody>
             </table>
+
             @else
 
                 مطلبی جهت نمایشش وجود ندارد
@@ -56,6 +57,15 @@
             <hr>
             <div class="offset-4">
             </div>
+        </div>
+    </div>
+</div>
+<br><br><br>
+<hr>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 offset-5">
+            {{ $articles->render() }}
         </div>
     </div>
 </div>

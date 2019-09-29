@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Session;
 class ArticleController extends Controller
 {
     public function index(){
-        $articles=Article::all();
+
+        $articles=Article::paginate(2);
         $count=$articles->count();
 
         return view('articles.all',compact('articles','count'));
