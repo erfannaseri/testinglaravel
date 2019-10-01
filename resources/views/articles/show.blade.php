@@ -56,11 +56,24 @@
 <div class="container bg-primary">
     <div class="row">
         <div class="col-12">
-            @foreach($articles->comments as $comment)
+            @if($comments != null)
+            @foreach($comments as $comment)
                 <p class="bg-danger text-black-50" align="right"> {{$comment->author}} : میگه</p>
                <h4 align="right" style="margin-right:100px"> {{$comment->content}}</h4>
                 <hr>
             @endforeach
+                @else
+                <p>هیچ پستی جهت نمایش وجود ندارد</p>
+                @endif
+        </div>
+    </div>
+</div>
+<br><br><br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 offset-5">
+            {{ $comments->render() }}
         </div>
     </div>
 </div>

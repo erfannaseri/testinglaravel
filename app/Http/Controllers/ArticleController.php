@@ -18,8 +18,9 @@ class ArticleController extends Controller
     }
     public function show($id){
         $articles=Article::find($id);
+        $comments=Article::find($id)->comments()->paginate(2);
 
-        return view('articles.show',compact('articles'));
+        return view('articles.show',compact('articles','comments'));
     }
     public function create(){
         return view('articles.create');
@@ -52,7 +53,7 @@ class ArticleController extends Controller
         return redirect('articles');
     }
     public function storeComment(Request $request,$articleId){
-       $article=Article::find($articleId);
+       $article=Article::find($articleId)->comments();
        $article->comments()->create([
            'author'=>$request->input('author'),
            'content'=>$request->input('content')
