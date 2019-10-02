@@ -19,38 +19,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::resource('posts','PostsController');
-Route::get('/test','TestingController@index');
-Route::get('/collection', function () {
-   $user=User::all();
-   foreach ($user as $u){
-       echo '<ol>';
-       echo  '<li>'.$u->email.'</li>';
 
-       echo '<li>'.$u->password.'</li>';
-       echo '</ol>';
-   }
-});
-Route::get('/rep','testingcontroller@replicate');
-Route::get('/soft','testingcontroller@softdelete');
-Route::get('/ssoft','testingcontroller@showsoft');
-Route::get('/restore','testingcontroller@restore');
-Route::get('/unit','testingcontroller@search');
-Route::get('/t/{id}/t',function (){
-    return 'ghreg';
-});
-Route::get('/login','ProjectController@index');
-Route::post('/verify',[
-    'uses'=>'projectcontroller@store',
-    'middleware'=>'web'
-]);
 Route::group(['prefix'=>'articles'],function (){
-    Route::get('','articlecontroller@index');
-    Route::get('/{id}','articlecontroller@show');
-    Route::get('/create','articlecontroller@create');
-    Route::post('/','articlecontroller@store');
-    Route::post('/{id}/comments','articlecontroller@storecomment');
-    Route::get('/{id}/edit','articlecontroller@edit');
-    Route::put('/{id}','articlecontroller@update');
-    Route::delete('/{id}','articlecontroller@delete');
-    Route::get('/test','articlecontroller@testing');
+    Route::get('','articlecontroller@index')->name('articles.index');
+    Route::get('/{id}','articlecontroller@show')->name('articles.show');
+    Route::get('/create','articlecontroller@create')->name('articles.create');
+    Route::post('/','articlecontroller@store')->name('articles.store');
+    Route::post('/{id}/comments','articlecontroller@storecomment')->name('articles.comments');
+    Route::get('/{id}/edit','articlecontroller@edit')->name('articles.edit');
+    Route::put('/{id}','articlecontroller@update')->name('articles.update');
+    Route::delete('/{id}','articlecontroller@delete')->name('articles.destroy');
 });
+Route::group(['prefix'=>'categories'],function (){
+   Route::get('/','categorycontroller@index');
+   Route::get('/create','categorycontroller@create');
+   Route::post('/','categorycontroller@store');
+   Route::get('{id}/edit','categorycontroller@edit');
+   Route::put('/{id}','categorycontroller@update');
+   Route::delete('/{id}','categorycontroller@destroy');
+});
+Route::get('/test','categorycontroller@test');

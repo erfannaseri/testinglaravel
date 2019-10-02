@@ -19,8 +19,15 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Category whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Category whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Article[] $articles
+ * @property-read int|null $articles_count
  */
 class Category extends Model
 {
     protected $fillable=['title'];
+
+    public function articles()
+    {
+        return $this->belongsToMany(Article::class,'articles_to_categories');
+    }
 }

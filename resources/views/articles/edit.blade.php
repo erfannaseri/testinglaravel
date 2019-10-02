@@ -21,20 +21,26 @@
 @endif
 <div style="margin-left: 550px;background: darkgray;width:400px">
     <div align="center">
-        @foreach($articles as $article)
-        <form action="/articles/{{$article->id}}" method="post">
+
+        <form action="/articles/{{$articles->id}}" method="post">
             {{csrf_field()}}
             @method('PUT')
             <p>عنوان مورد نظر را  وارد کنید</p>
-            <input type="text" name="title" value="{{$article->title}}">
+            <input type="text" name="title" value="{{$articles->title}}">
             <p>منبع</p>
-            <input type="text" name="source" value="{{$article->source}}">
+            <input type="text" name="source" value="{{$articles->source}}">
+            <p>دسته بندی ها را انتخاب نمایید</p>
+            <select name="categories[]" id="" multiple>
+                @foreach($categories as $category )
+                    <option value="{{$category->id}}" @if($articles->hasCategory($category->id))selected @endif>{{$category->title}}</option>
+                @endforeach
+            </select>
             <p>متن</p>
-            <textarea name="content" id="" cols="30" rows="10">{{$article->content}}</textarea>
+            <textarea name="content" id="" cols="30" rows="10">{{$articles->content}}</textarea>
             <br>
             <input type="submit" name="submit" value="تایید">
         </form>
-            @endforeach
+
     </div>
 </div>
 </body>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -19,41 +20,50 @@ class ArticleController extends Controller
     public function show($id){
         $articles=Article::find($id);
         $comments=Article::find($id)->comments()->paginate(2);
+        $categories=Article::find($id)->categories()->get();
 
-        return view('articles.show',compact('articles','comments'));
+        return view('articles.show',compact('articles','comments','categories'));
     }
+
     public function create(){
-        return view('articles.create');
+        $categories=Category::all();
+        return view('articles.create',compact('categories'));
     }
+
     public function store(Request $request){
-            DB::table('articles')->insert([
-            'title'=>$request->input('title'),
-            'source'=>$request->input('source'),
-            'content'=>$request->input('content')
-            ]);
-            if (true) {
-                Session::flash('insertArticle','مقاله مورد ن ظر ثبت شد');
-            }
+           $article=Article::create([
+               'title'=>$request->input('title'),
+                'source'=>$request->input('source'),
+                'content'=>$request->input('content')
+        ]);
+           $article->save();
+           $article->categories()->sync($request->input('categories'));
             return back();
     }
-    public function edit($id){
-        $articles=DB::table('articles')->where('id',$id)->get();
-        return view('articles.edit',compact('articles'));
+    public function edit($id)
+    {
+        $articles=Article::find($id);
+        $categories=Category::all();
+        return view('articles.edit',compact('articles','categories'));
     }
     public function update(Request $request,$id){
-        DB::table('articles')->where('id',$id)->update([
-            'title'  =>$request->input('title'),
-            'source' =>$request->input('source'),
-            'content'=>$request->input('content')
-        ]);
+       $article=Article::find($id);
+        $article->update([
+          'title'=>$request->input('title'),
+          'source'=>$request->input('source'),
+          'content'=>$request->input('content')
+       ]);
+       $article->save();
+       $article->categories()->sync($request->input('categories'));
         return redirect('articles');
     }
     public function delete($id){
         DB::table('articles')->where('id',$id)->delete();
         return redirect('articles');
     }
-    public function storeComment(Request $request,$articleId){
-       $article=Article::find($articleId)->comments();
+    public function storeComment(Request $request,$articleId)
+    {
+       $article=Article::find($articleId);
        $article->comments()->create([
            'author'=>$request->input('author'),
            'content'=>$request->input('content')
@@ -62,8 +72,5 @@ class ArticleController extends Controller
        return redirect('/articles/'.$articleId);
 
     }
-    public function testing(){
-        $article=Article::find(1)->comments();
-       var_dump($article);
-    }
+
 }

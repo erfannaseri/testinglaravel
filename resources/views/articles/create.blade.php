@@ -27,6 +27,12 @@
             <input type="text" name="title" placeholder="عنوان مقاله ارسالی ">
             <p>منبع</p>
             <input type="text" name="source" placeholder="example.com">
+            <p>دسته بندی ها را انتخاب نمایید</p>
+            <select name="categories[]" id="" multiple>
+                @foreach($categories as $category )
+                <option value="{{$category->id}}">{{$category->title}}</option>
+                @endforeach
+            </select>
             <p>متن</p>
             <textarea name="content" id="" cols="30" rows="10"></textarea>
             <br>

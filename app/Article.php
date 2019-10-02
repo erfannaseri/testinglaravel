@@ -29,13 +29,24 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Article whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Category[] $categories
+ * @property-read int|null $categories_count
  */
 class Article extends Model
 {
     protected $fillable=[
         'title','source','content'
     ];
-    public function comments(){
+    public function comments()
+    {
         return $this->hasMany(Comment::class);
+    }
+    public function categories()
+    {
+        return $this->belongsTomany(Category::class,'articles_to_categories');
+    }
+    public function hasCategory($id)
+    {
+        return in_array($id,$this->categories()->pluck('id')->toArray());
     }
 }

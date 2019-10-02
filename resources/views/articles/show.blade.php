@@ -20,6 +20,7 @@
                     <th>عنوان</th>
                     <th>منبع</th>
                     <th>متن</th>
+                    <th>دسته بندی</th>
                     <th colspan="3">عملیات لازم</th>
                 </tr>
                 </thead>
@@ -30,6 +31,9 @@
                             <th>{{$articles->title}}</th>
                             <th>{{$articles->source}}</th>
                             <th>{{$articles->content}}</th>
+                            @foreach($categories as $category)
+                            <th>{{$category->title}}</th>
+                            @endforeach
                             <th>
                                 <a href="../articles/{{$articles->id}}/edit" class="btn btn-outline-primary btn-dark">ویرایش </a>
                             </th>
