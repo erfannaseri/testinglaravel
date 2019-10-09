@@ -39,3 +39,42 @@ Route::group(['prefix'=>'categories'],function (){
    Route::delete('/{id}','categorycontroller@destroy');
 });
 Route::get('/test','categorycontroller@test');
+
+//Route::prefix('/admin')->name('admin.')->namespace('Admin')->group(function(){
+//    Route::get('/dashboard','HomeController@index')->name('home');
+//});
+//Route::namespace('Auth')->group(function(){
+//
+//    //Login Routes
+//    Route::get('/login','LoginController@showLoginForm')->name('login');
+//    Route::post('/login','LoginController@login');
+//    Route::post('/logout','LoginController@logout')->name('logout');
+//    //Forgot Password Routes
+//    Route::get('/password/reset','ForgotPasswordController@showLinkRequestForm')->name('password.request');
+//    Route::post('/password/email','ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+//    //Reset Password Routes
+//    Route::get('/password/reset/{token}','ResetPasswordController@showResetForm')->name('password.reset');
+//    Route::post('/password/reset','ResetPasswordController@reset')->name('password.update');
+//});
+
+Auth::routes();
+    Route::get('/home','HomeController@index')->name('home');
+/**************************************************************/
+    Route::get('admin/home','AdminController@index');
+    Route::get('admin/editor','EditorController@index');
+    Route::get('admin/producer','ProducerController@index');
+    /******** LOG IN *****************/
+    Route::get('admin','Admin\LoginController@showLoginForm')->name('admin.login');
+    Route::post('admin','Admin\LoginController@login');
+    Route::post('logout','Admin\logincontroller@logout')->name('admin.logout');
+    /*************** REGISTER ********************/
+    Route::get('admin-register','Admin\RegisterController@showRegistrationForm')->name('admin.register');
+    Route::post('admin-register','Admin\RegisterController@register')->name('admin.create');
+    /*************** FOTGOT PASSWORD ************/
+    Route::post('admin-password/email','Admin\forgotpasswordcontroller@sendResetLinkemail')->name('admin.password.email');
+    Route::get('admin-password/reset','Admin\forgotpasswordcontroller@showlinkrequestform')->name('admin.password.request');
+    /************** RESET PASSWORD **************/
+    Route::post('admin-password/reset','Admin\ResetPasswordController@reset')->name('admin.password.update');
+    Route::get('admin-password/reset/{token}','Admin\resetpasswordcontroller@showresetform')->name('admin.password.reset');;
+
+    Route::get('/deleting','userController@delete');

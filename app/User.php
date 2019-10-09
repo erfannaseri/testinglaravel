@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\SoftDeletes;
+
 /**
  * App\User
  *
@@ -38,19 +38,24 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\User withoutTrashed()
  * @mixin \Eloquent
+ * @property string $verifyToken
+ * @property int|null $status
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereVerifyToken($value)
  */
 class User extends Authenticatable
 {
     use Notifiable;
-    use SoftDeletes;
+
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
+    protected $guarded=['surname'];
     protected $fillable = [
-        'name', 'email', 'password',
+        'name','surname', 'email', 'password','verifyToken'
     ];
 
     /**
@@ -62,13 +67,4 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-    protected $dates=['deleted_at'];
 }

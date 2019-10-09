@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Session;
 class ArticleController extends Controller
 {
     public function index(){
-
         $articles=Article::paginate(2);
         $count=$articles->count();
 
