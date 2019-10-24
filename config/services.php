@@ -30,4 +30,15 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'twitter' => [
+        'client_id'=>'your twitter client id',
+        'client_secret'=>'your twitter client  secret',
+        'redirect' =>'http://127.0.0.1/login/twitter/callback'
+    ],
+    'github' => [
+        'client_id'=>'4d1b6749c35bbd2f1a92',
+        'client_secret'=>'b1aa0905db13ea966f28fab58c3dd4f4c1ed1c3e',
+        'redirect' =>'http://127.0.0.1:8000/login/github/callback'
+    ],
+
 ];

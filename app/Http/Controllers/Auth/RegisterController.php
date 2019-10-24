@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Str;
+use App\Mail\verifyToken;
 class RegisterController extends Controller
 {
     /*
@@ -50,6 +52,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'surname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -63,10 +66,45 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user= User::create([
             'name' => $data['name'],
+            'surname' => $data['surname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'verifyToken'=>Str::random(40)
         ]);
+
+        $thisUser=User::findOrFail($user->id);
+        $this->SendEmail($thisUser);
+
+    }
+
+    public function SendEmail($thisUser)
+    {
+
+        Mail::to($thisUser['email'])->send(new verifyToken($thisUser));
+
+    }
+
+
+
+    public function VerifyEmailFirst()
+    {
+        return view('email.VerifyEmailFirst');
+    }
+
+    public function sendEmailDone($email,$verifyToken)
+    {
+       $user=User::where(['email'=>$email,'verifyToken'=>$verifyToken])->first();
+        if ($user) {
+
+            $activate= User::where(['email'=>$email,'verifyToken'=>$verifyToken])->update(['status'=>1,'verifyToken'=>'null']);
+
+            if ($activate){
+                return '<h3 align="center" style="margin-top: 270px">🙂حساب شما فعال گردید </h3>';
+            }
+        }else{
+            return '<h3 align="center" style="margin-top: 270px">چنین کاربری ثبت نام نکرده است🥴</h3>' ;
+        }
     }
 }

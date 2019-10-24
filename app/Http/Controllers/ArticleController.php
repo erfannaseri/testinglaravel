@@ -30,6 +30,7 @@ class ArticleController extends Controller
     }
 
     public function store(Request $request){
+
            $article=Article::create([
                'title'=>$request->input('title'),
                 'source'=>$request->input('source'),
@@ -39,6 +40,12 @@ class ArticleController extends Controller
            $article->categories()->sync($request->input('categories'));
             return back();
     }
+
+    public function storeImage(Request $request)
+    {
+        dd($request->file('file'));
+    }
+
     public function edit($id)
     {
         $articles=Article::find($id);

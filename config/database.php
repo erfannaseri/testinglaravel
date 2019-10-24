@@ -55,6 +55,11 @@ return [
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
+            'dump' => [
+               'dump_binary_path' => 'C:/xampp/mysql/bin/', // only the path, so without `mysqldump` or `pg_dump`
+               'use_single_transaction',
+               'timeout' => 60 * 5, // 5 minute timeout
+            ],
             'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,

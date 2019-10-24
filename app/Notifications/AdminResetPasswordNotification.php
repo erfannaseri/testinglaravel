@@ -41,6 +41,7 @@ class AdminResetPasswordNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    ->subject('تنظیم مجدد رمز عبور')
                     ->line('شما این ایمیل را بخاطر اینکه رمز عبور خود را فراموش کرده اید دریافت نموده اید')
                     ->action('تنظیم رمز عبور ادمین', route('admin.password.reset',$this->token))
                     ->line('چنانچه شما سهوا درخواست داده اید یا اینکه ررمز عبور خود را به یاد اورده اید این ایمیل را نادیده بگیرید');

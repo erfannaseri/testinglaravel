@@ -15,8 +15,12 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
+                                @if(!empty($name))
+                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{$name }}" required autocomplete="name" autofocus>
+                                @else
+                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                               @endif
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -43,8 +47,12 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
+                            @if(!empty($email))
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email }}" required autocomplete="email">
+                                @else
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                            @endif
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -81,6 +89,21 @@
                                     {{ __('Register') }}
                                 </button>
                             </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <label class="col-md-4 control-label">ثبت نام از طریق</label>
+
+                            <div class="row">
+                            </div>
+                            <div class="col-md-8 col-md-offset-2">
+                                <a href="{{url('/login/twitter')}}"  class="btn btn-social btn-twitter"><i  class="fa fa-twitter "></i>twitter</a>
+                                <a href="{{url('/login/facebook')}}" class="btn btn-social btn-facebook"><i class="fa fa-facebook"></i>facebook</a>
+                                <a href="{{url('/login/linkedin')}}" class="btn btn-social btn-linkedin"><i class="fa fa-linkedin"></i>linkedin</a>
+                                <a href="{{url('/login/google')}}"   class="btn btn-social btn-google"><i   class="fa fa-google"></i>google</a>
+                                <a href="{{url('/login/github')}}"   class="btn btn-social btn-github"><i   class="fa fa-github"></i>github</a>
+                            </div>
+
                         </div>
                     </form>
                 </div>

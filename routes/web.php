@@ -25,6 +25,7 @@ Route::group(['prefix'=>'articles'],function (){
     Route::get('/{id}','articlecontroller@show')->name('articles.show');
     Route::get('/create','articlecontroller@create')->name('articles.create');
     Route::post('/','articlecontroller@store')->name('articles.store');
+    Route::post('/photo','articlecontroller@storeImage')->name('article.photo');
     Route::post('/{id}/comments','articlecontroller@storecomment')->name('articles.comments');
     Route::get('/{id}/edit','articlecontroller@edit')->name('articles.edit');
     Route::put('/{id}','articlecontroller@update')->name('articles.update');
@@ -77,4 +78,45 @@ Auth::routes();
     Route::post('admin-password/reset','Admin\ResetPasswordController@reset')->name('admin.password.update');
     Route::get('admin-password/reset/{token}','Admin\resetpasswordcontroller@showresetform')->name('admin.password.reset');;
 
-    Route::get('/deleting','userController@delete');
+    Route::get('/VerifyEmailFirst','Auth\RegisterController@VerifyEmailFirst')->name('VerifyEmailFirst');
+    Route::get('verify/{email}/{verifyToken}','Auth\RegisterController@sendEmailDone')->name('SendEmailDone');
+
+    /**************************** custom Register *****************************/
+
+    Route::get('custom-register','CustomController@showRegisterForm');
+    Route::post('custom-register','CustomController@register')->name('custom.register');
+
+    Route::get('/custom-login','CustomController@showLoginForm')->name('custom.login');
+    Route::post('/custom-login','CustomController@loginUser')->name('custom.loginUser');
+
+    Route::get('/SendEmailDone/{email}/{verifyToken}','CustomController@SendEmailDone')->name('SendEmailDone');
+
+    Route::get('upload','TestController@index');
+    Route::post('upload','TestController@storeImage')->name('custom.upload');
+
+    /********************** Socialite Login *****************************/
+
+
+    Route::get('/login/{social}','Auth\LoginController@socialLogin')
+        ->where('social','twitter|google|github|facebook|linkedin');
+    Route::get('login/{social}/callback','Auth\LoginController@handleProviderCallback')
+        ->where('social','twitter|facebook|github|linkedin|google');
+
+/*******************************Testing Event & Listener *****************************************/
+    Route::get('test','TestController@showFormRegister');
+    Route::post('test','TestController@register')->name('custom.registering');
+
+    /********************* TESTING JOBS *******************************************************/
+    Route::get('send','TestController@pageSendEmail');
+    Route::get('sending','TestController@sendMail')->name('send');
+
+    Route::get('job','TestController@queue');
+    Route::get('jobs','TestController@sendMail3')->name('send2');
+/*************************TESTING CAPTCHA *******************************************/
+
+    Route::get('captchas','TestingCaptcha@create');
+    Route::post('captchas','TestingCaptcha@registerData')->name('submit.captcha');
+    Route::get('refreshcaptcha','TestingCaptcha@refreshCaptcha');
+
+    /*******************GOOGLE RECAPTCHA ******************************************/
+    Route::get('/google-recaptcha','TestingCaptcha@showCaptcha');
