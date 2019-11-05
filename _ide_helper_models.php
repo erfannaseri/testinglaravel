@@ -76,7 +76,7 @@ namespace App{
 
 namespace App{
 /**
- * App\Posts
+ * App\Post
  *
  * @property int $id
  * @property string $title
@@ -86,20 +86,20 @@ namespace App{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static bool|null forceDelete()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Posts newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Posts newQuery()
- * @method static \Illuminate\Database\Query\Builder|\App\Posts onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Posts query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Post newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Post newQuery()
+ * @method static \Illuminate\Database\Query\Builder|\App\Post onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Post query()
  * @method static bool|null restore()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Posts whereAuthor($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Posts whereContent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Posts whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Posts whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Posts whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Posts whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Posts whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Posts withTrashed()
- * @method static \Illuminate\Database\Query\Builder|\App\Posts withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Post whereAuthor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Post whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Post whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Post whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Post whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Post whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Post whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Post withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Post withoutTrashed()
  */
 	class Posts extends \Eloquent {}
 }

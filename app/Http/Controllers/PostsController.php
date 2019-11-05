@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FormValidation;
-use App\Posts;
+use App\Post;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -15,7 +15,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts=Posts::paginate(4);
+        $posts=Post::paginate(4);
 
         return view('posts.all',compact('posts'));
 
@@ -40,8 +40,8 @@ class PostsController extends Controller
     public function store(FormValidation $request)
     {
         $validatedData = $request->validated();
-        Posts::create($validatedData);
-        $post=new Posts([
+        Post::create($validatedData);
+        $post=new Post([
             'title'     =>$request->input('title'),
             'author'    =>$request->input('author'),
             'content'   =>$request->input('content')
@@ -70,7 +70,7 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        $posts=Posts::where('id',$id)->get();
+        $posts=Post::where('id',$id)->get();
 
        return view('posts.edit',compact('posts'));
     }
@@ -85,7 +85,7 @@ class PostsController extends Controller
     public function update(Request $request, $id)
     {
 
-        $post=Posts::find($id);
+        $post=Post::find($id);
         $post->update([
            'title'  =>$request->input('title'),
             'author'=>$request->input('author'),
@@ -104,7 +104,7 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        $posts=Posts::find($id);
+        $posts=Post::find($id);
         $posts->delete();
         return redirect('/posts');
     }

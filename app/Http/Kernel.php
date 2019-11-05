@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckUser;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -64,6 +65,8 @@ class Kernel extends HttpKernel
         'admin' =>  \App\Http\Middleware\AdminMiddleware::class,
         'editor'=>  \App\Http\Middleware\EditorMiddleware::class,
         'producer'=>\App\Http\Middleware\ProducerMiddleware::class,
+        'ipcheck'=>\App\Http\Middleware\IpCheck::class,
+        'checkuser'=>\App\Http\Middleware\CheckUser::class,
     ];
 
     /**
@@ -81,5 +84,6 @@ class Kernel extends HttpKernel
         \Illuminate\Session\Middleware\AuthenticateSession::class,
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
         \Illuminate\Auth\Middleware\Authorize::class,
+        CheckUser::class
     ];
 }

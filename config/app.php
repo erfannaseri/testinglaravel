@@ -180,7 +180,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
     ],
 
     /*
@@ -233,7 +232,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Socialite'=>Laravel\Socialite\Facades\Socialite::class,
         'Image' =>Intervention\Image\Facades\Image::class,
-        'Mews'  =>\Mews\Captcha\Facades\Captcha::class
+        'Mews'  =>\Mews\Captcha\Facades\Captcha::class,
+        'Test'=>App\Facade\TestFacade::class,
     ],
 
 ];

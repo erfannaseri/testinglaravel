@@ -11,7 +11,9 @@ use App\Jobs\SendEmailJob;
 use App\Jobs\SendWelcomeEmail;
 use App\User;
 
+use Auth;
 use Event;
+use Gate;
 use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Events\Dispatcher;
@@ -127,4 +129,22 @@ class TestController extends Controller
         Log::info('stop');
     }
 
+    public function middle()
+    {
+        return view('test.middleware');
+    }
+    public function checkUser()
+    {
+        return view('test.checked');
+    }
+
+    public function gate()
+    {
+        $user=Auth::user();
+        if (Gate::allows('setting',$user)) {
+            return 'you are authorized';
+        }else{
+            return "i'm so sorry,you are not authorized";
+        }
+    }
 }

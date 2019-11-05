@@ -14,7 +14,58 @@
 
 
 use Illuminate\Support\Facades\Route;
-use App\User;
+
+
+//dd(Test::randomString());
+
+//class Stadium{
+//
+//}
+//
+//class Football
+//{
+//    /**
+//     * @var Stadium
+//     */
+//    private $stadium;
+//
+//    public function __construct(Stadium $stadium)
+//    {
+//        $this->stadium=$stadium;
+//    }
+//}
+//
+//
+//class Name
+//{
+//
+//    /**
+//     * @var Football
+//     */
+//    private $football;
+//
+//    public function __construct(Football $football)
+//    {
+//        $this->football=$football;
+//    }
+//}
+//
+////app()->bind('erfan',function(){
+////    return new Name(new Football(new Stadium));
+////});
+//
+//dd(resolve('Name'));
+
+//app()->singleton('Name',function (){
+//    return Str::random(40);
+//});
+//
+//dump(app()->make('Name'));
+//dd(app()->make('Name'));
+
+
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -120,3 +171,12 @@ Auth::routes();
 
     /*******************GOOGLE RECAPTCHA ******************************************/
     Route::get('/google-recaptcha','TestingCaptcha@showCaptcha');
+
+    /******************* SERVICE CONTAINER *****************************************/
+
+    Route::get('/container','TestServiceContainer@getBack');
+    /********************* MIDDLEWARE **************************/
+    Route::get('/middleware','TestController@middle')->middleware('ipcheck');
+    Route::get('/checkuser','TestController@middle')->middleware(['auth','checkuser:say your Email']);
+    /********************* GATE POLICY *************************/
+    Route::get('/setting','TestController@gate')->name('setting');

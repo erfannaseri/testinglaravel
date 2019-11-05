@@ -79,6 +79,11 @@
                         <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
+                        @can('setting',Auth::user())
+                            <li class="nav-item setting">
+                                <a href="{{ route('setting') }}" title="setting">تنظیمات</a>
+                            </li>
+                        @endcan
                     @else
                         <a href="{{ route('login') }}">ورود</a>
 
